@@ -11,7 +11,9 @@ type Link = {
   lastAccessedAtUtc?: string;
   visitCount: number;
 };
+
 const apiBaseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, "") ?? "";
+
 function App() {
   const [url, setUrl] = useState("");
   const [result, setResult] = useState<Link>();
@@ -20,38 +22,60 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [qr, setQr] = useState("");
+
   async function loadRecent() {
+    const endpoint = `${apiBaseUrl}/api/urls?limit=8`;
+    console.info("[ShortUrl] Loading recent links", { endpoint });
+
     try {
-      const response = await fetch(`${apiBaseUrl}/api/urls?limit=8`);
-      if (response.ok) setRecent(await response.json());
-    } catch {}
+      const response = await fetch(endpoint);
+      console.info("[ShortUrl] Recent links response", { status: response.status });
+
+      if (response.ok) {
+        setRecent(await response.json());
+      }
+    } catch (error) {
+      console.error("[ShortUrl] Could not load recent links", { endpoint, error });
+    }
   }
+
   useEffect(() => {
+    console.info("[ShortUrl] API base URL configured", { apiBaseUrl });
     void loadRecent();
   }, []);
+
   useEffect(() => {
-    if (result)
-      void QRCode.toDataURL(result.shortUrl, { width: 180, margin: 1 }).then(
-        setQr,
-      );
-    else setQr("");
+    if (result) {
+      void QRCode.toDataURL(result.shortUrl, { width: 180, margin: 1 }).then(setQr);
+    } else {
+      setQr("");
+    }
   }, [result]);
+
   async function submit(e: FormEvent) {
     e.preventDefault();
     setError("");
     setResult(undefined);
     setLoading(true);
+
+    const endpoint = `${apiBaseUrl}/api/urls`;
+    console.info("[ShortUrl] Creating short link", { endpoint });
+
     try {
-      const response = await fetch(`${apiBaseUrl}/api/urls`, {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
       });
       const body = await response.json();
-      if (!response.ok)
+      console.info("[ShortUrl] Create link response", { status: response.status });
+
+      if (!response.ok) {
         throw new Error(
           body.error ?? "Unable to create a short link. Please try again.",
         );
+      }
+
       setResult({
         ...body,
         visitCount: 0,
@@ -59,21 +83,25 @@ function App() {
       });
       setUrl("");
       await loadRecent();
-    } catch (err) {
+    } catch (error) {
+      console.error("[ShortUrl] Create link request failed", { endpoint, error });
       setError(
-        err instanceof Error
-          ? err.message
+        error instanceof Error
+          ? error.message
           : "Unable to create a short link. Please try again.",
       );
     } finally {
       setLoading(false);
     }
   }
+
   async function copy(link: Link) {
     await navigator.clipboard.writeText(link.shortUrl);
+    console.info("[ShortUrl] Short link copied", { shortCode: link.shortCode });
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   }
+
   return (
     <main>
       <section className="card">
@@ -110,22 +138,11 @@ function App() {
                 <button className="secondary" onClick={() => void copy(result)}>
                   {copied ? "Copied!" : "Copy link"}
                 </button>
-                <a
-                  className="open"
-                  href={result.shortUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a className="open" href={result.shortUrl} target="_blank" rel="noreferrer">
                   Open link ?
                 </a>
               </div>
-              {qr && (
-                <img
-                  className="qr"
-                  src={qr}
-                  alt={`QR code for ${result.shortUrl}`}
-                />
-              )}
+              {qr && <img className="qr" src={qr} alt={`QR code for ${result.shortUrl}`} />}
             </section>
           )}
         </div>
@@ -151,4 +168,5 @@ function App() {
     </main>
   );
 }
+
 createRoot(document.getElementById("root")!).render(<App />);
