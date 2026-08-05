@@ -32,7 +32,16 @@ function App() {
       console.info("[ShortUrl] Recent links response", { status: response.status });
 
       if (response.ok) {
-        setRecent(await response.json());
+        const links: Link[] = await response.json();
+        setRecent(links);
+        setResult((currentResult) => {
+          if (!currentResult) {
+            return currentResult;
+          }
+
+          return links.find((link) => link.shortCode === currentResult.shortCode)
+            ?? currentResult;
+        });
       }
     } catch (error) {
       console.error("[ShortUrl] Could not load recent links", { endpoint, error });
@@ -178,4 +187,5 @@ function App() {
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
+
 
