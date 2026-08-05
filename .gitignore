@@ -5,3 +5,8 @@ node_modules/
 .env.*
 !*.example
 .artifacts/
+
+dist/
+*.tsbuildinfo
+playwright-report/
+test-results/
