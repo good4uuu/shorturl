@@ -40,8 +40,16 @@ function App() {
   }
 
   useEffect(() => {
-    console.info("[ShortUrl] API base URL configured", { apiBaseUrl });
+    const refreshIntervalMs = 10_000;
+    console.info("[ShortUrl] API base URL configured", {
+      apiBaseUrl,
+      refreshIntervalMs,
+    });
+
     void loadRecent();
+    const intervalId = window.setInterval(() => void loadRecent(), refreshIntervalMs);
+
+    return () => window.clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -170,3 +178,4 @@ function App() {
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
+
