@@ -7,6 +7,18 @@ A responsive URL shortener using ASP.NET Core, Supabase PostgreSQL, EF Core, Rea
 - API: https://shorturl-api-aalt.onrender.com
 - Health check: https://shorturl-api-aalt.onrender.com/health
 - Swagger UI: https://shorturl-api-aalt.onrender.com/swagger/index.html
+- Frontend: https://shorten-url-blue.vercel.app
+## Deployed application
+
+The frontend at `https://shorten-url-blue.vercel.app` calls the Render API. Render must allow this exact Vercel origin through CORS:
+
+```text
+Cors__AllowedOrigins__0=https://shorten-url-blue.vercel.app
+PublicBaseUrl=https://shorturl-api-aalt.onrender.com
+``` 
+
+After changing Render environment variables, save them and deploy the latest commit again.
+
 ## Architecture
 
 ```text
@@ -75,3 +87,4 @@ Database initialization uses an idempotent SQL script rather than EF Core migrat
 ## Notes
 
 Supabase provides the managed PostgreSQL database. The database password and connection string remain server-side. Malicious-link scanning, authentication, billing, and team workspaces are deliberately out of scope for this assignment.
+
