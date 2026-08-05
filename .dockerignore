@@ -1,0 +1,11 @@
+﻿.git
+.github
+.agents
+.artifacts
+.tools
+**/bin
+**/obj
+**/node_modules
+src/UrlShortener.Web/dist
+src/UrlShortener.Web/test-results
+src/UrlShortener.Web/playwright-report
