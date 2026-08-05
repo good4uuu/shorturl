@@ -2,6 +2,11 @@
 
 A responsive URL shortener using ASP.NET Core, Supabase PostgreSQL, EF Core, React, and TypeScript.
 
+## Live API
+
+- API: https://shorturl-api-aalt.onrender.com
+- Health check: https://shorturl-api-aalt.onrender.com/health
+- Swagger UI: https://shorturl-api-aalt.onrender.com/swagger/index.html
 ## Architecture
 
 ```text
