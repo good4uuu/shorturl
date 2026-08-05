@@ -11,3 +11,6 @@ dist/
 playwright-report/
 test-results/
 .tools/
+agent.md
+feature.md
+skill.md

@@ -86,5 +86,6 @@ Database initialization uses an idempotent SQL script rather than EF Core migrat
 
 ## Notes
 
-Supabase provides the managed PostgreSQL database. The database password and connection string remain server-side. Malicious-link scanning, authentication, billing, and team workspaces are deliberately out of scope for this assignment.
+Supabase provides the managed PostgreSQL database. The database password and connection string remain server-side.
+
 
