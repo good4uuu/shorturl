@@ -49,16 +49,22 @@ function App() {
   }
 
   useEffect(() => {
-    const refreshIntervalMs = 10_000;
-    console.info("[ShortUrl] API base URL configured", {
-      apiBaseUrl,
-      refreshIntervalMs,
-    });
+    function refreshWhenVisible() {
+      if (document.visibilityState === "visible") {
+        console.info("[ShortUrl] Refreshing after returning to the app");
+        void loadRecent();
+      }
+    }
 
+    console.info("[ShortUrl] API base URL configured", { apiBaseUrl });
     void loadRecent();
-    const intervalId = window.setInterval(() => void loadRecent(), refreshIntervalMs);
+    window.addEventListener("focus", refreshWhenVisible);
+    document.addEventListener("visibilitychange", refreshWhenVisible);
 
-    return () => window.clearInterval(intervalId);
+    return () => {
+      window.removeEventListener("focus", refreshWhenVisible);
+      document.removeEventListener("visibilitychange", refreshWhenVisible);
+    };
   }, []);
 
   useEffect(() => {
@@ -187,5 +193,6 @@ function App() {
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
+
 
 
