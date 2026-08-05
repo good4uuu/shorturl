@@ -2,6 +2,14 @@
 
 A responsive URL shortener using ASP.NET Core, Supabase PostgreSQL, EF Core, React, and TypeScript.
 
+## Architecture
+
+```text
+UrlShortener.Api            Controllers, Startup, HTTP concerns
+UrlShortener.Application    Business rules, contracts, interfaces
+UrlShortener.Infrastructure EF Core, repository, Supabase access
+```
+
 ## Features
 
 - HTTP/HTTPS validation with a 2,048-character limit

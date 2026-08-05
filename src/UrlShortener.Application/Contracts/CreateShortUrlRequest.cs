@@ -1,3 +1,3 @@
-namespace UrlShortener.Api.Contracts;
+﻿namespace UrlShortener.Application.Contracts;
 
 public sealed record CreateShortUrlRequest(string? Url);

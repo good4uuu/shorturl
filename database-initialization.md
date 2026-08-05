@@ -1,6 +1,6 @@
 ﻿# Database initialization
 
-The SQL used to provision the application schema is stored separately in [initialize_database.sql](src/UrlShortener.Api/Data/Scripts/initialize_database.sql).
+The SQL used to provision the application schema is stored separately in [initialize_database.sql](src/UrlShortener.Infrastructure/Data/Scripts/initialize_database.sql).
 
 ## Why it is separate
 

@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using UrlShortener.Api.Services;
+using UrlShortener.Application.Services;
 
 namespace UrlShortener.UnitTests;
 

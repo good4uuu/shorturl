@@ -1,6 +1,6 @@
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 
-namespace UrlShortener.Api.Services;
+namespace UrlShortener.Application.Services;
 
 public sealed class ShortCodeGenerator
 {

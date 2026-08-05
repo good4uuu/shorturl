@@ -26,6 +26,7 @@
     "eslint": "latest",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "latest",
+    "prettier": "^3.9.6",
     "typescript-eslint": "latest"
   }
 }

@@ -1,4 +1,4 @@
-namespace UrlShortener.Api.Models;
+﻿namespace UrlShortener.Application.Models;
 
 public sealed class ShortenedUrl
 {

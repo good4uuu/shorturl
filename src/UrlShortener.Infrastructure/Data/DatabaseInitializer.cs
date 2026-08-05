@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace UrlShortener.Api.Data;
+namespace UrlShortener.Infrastructure.Data;
 
 public static class DatabaseInitializer
 {
-    private const string ScriptResourceName = "UrlShortener.Api.Data.Scripts.initialize_database.sql";
+    private const string ScriptResourceName = "UrlShortener.Infrastructure.Data.Scripts.initialize_database.sql";
 
     public static async Task InitializeAsync(UrlShortenerDbContext context, CancellationToken cancellationToken = default)
     {

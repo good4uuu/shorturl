@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using UrlShortener.Api.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using UrlShortener.Application.Models;
 
-namespace UrlShortener.Api.Data;
+namespace UrlShortener.Infrastructure.Data;
 
 public sealed class UrlShortenerDbContext(DbContextOptions<UrlShortenerDbContext> options) : DbContext(options)
 {
