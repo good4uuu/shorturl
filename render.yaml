@@ -8,6 +8,8 @@
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
+      - key: DOTNET_USE_POLLING_FILE_WATCHER
+        value: "1"
       - key: ConnectionStrings__UrlShortener
         sync: false
       - key: PublicBaseUrl

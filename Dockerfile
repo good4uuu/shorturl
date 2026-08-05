@@ -11,6 +11,7 @@ RUN dotnet publish "src/UrlShortener.Api/UrlShortener.Api.csproj" -c Release -o 
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
+ENV DOTNET_USE_POLLING_FILE_WATCHER=1
 COPY --from=build /app/publish .
 EXPOSE 10000
 CMD ["sh", "-c", "dotnet UrlShortener.Api.dll --urls http://0.0.0.0:${PORT:-10000}"]
