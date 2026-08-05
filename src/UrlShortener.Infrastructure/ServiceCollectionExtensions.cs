@@ -8,10 +8,14 @@ namespace UrlShortener.Infrastructure;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         services.AddDbContext<UrlShortenerDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("UrlShortener")));
+            options.UseNpgsql(configuration.GetConnectionString("UrlShortener"))
+        );
         services.AddScoped<IShortenedUrlRepository, ShortenedUrlRepository>();
         return services;
     }

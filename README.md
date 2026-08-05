@@ -43,7 +43,7 @@ Open `http://localhost:5173`.
 
 ```powershell
 dotnet build src/UrlShortener.Api/UrlShortener.Api.csproj
-dotnet test tests/UrlShortener.UnitTests/UrlShortener.UnitTests.csproj
+dotnet test UrlShortener.sln
 ```
 
 ```powershell
@@ -52,7 +52,13 @@ npm run build
 npm run test:e2e
 ```
 
-The end-to-end test expects the API and Vite frontend to be running locally. Install its browser once with `npx playwright install`.
+The Playwright UI tests start Vite automatically and mock API responses. Install its browser once with `npx playwright install`.
+
+## API documentation
+
+When the API is running, open `http://localhost:5000/swagger` for Swagger UI and `http://localhost:5000/swagger/v1/swagger.json` for the OpenAPI document.
+
+Database initialization uses an idempotent SQL script rather than EF Core migrations; see [database-initialization.md](database-initialization.md) for the rationale and trade-off.
 
 ## API
 

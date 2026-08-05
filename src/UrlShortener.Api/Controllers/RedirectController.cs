@@ -9,7 +9,10 @@ public sealed class RedirectController(IUrlShortenerService service) : Controlle
     [HttpGet("/{shortCode}")]
     [ProducesResponseType(StatusCodes.Status302Found)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> RedirectAsync(string shortCode, CancellationToken cancellationToken)
+    public async Task<IActionResult> RedirectAsync(
+        string shortCode,
+        CancellationToken cancellationToken
+    )
     {
         var destination = await service.ResolveAsync(shortCode, cancellationToken);
         return destination is null

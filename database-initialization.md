@@ -8,10 +8,16 @@ Keeping DDL out of `Program.cs` makes the database schema easy to review, run ma
 
 ## How startup works
 
-1. The API builds `initialize_database.sql` into the assembly as an embedded resource.
+1. The API builds `initialize_database.sql` into the Infrastructure assembly as an embedded resource.
 2. `DatabaseInitializer.InitializeAsync` reads that resource at startup.
 3. EF Core runs the complete script with `ExecuteSqlRawAsync`.
 4. `IF NOT EXISTS` makes it safe to run again: it creates `shortened_urls` and both indexes only when absent.
+
+## Why this project does not use EF Core migrations
+
+This project intentionally uses a single idempotent SQL initialization script instead of EF Core migration files. It is a small assignment with one stable table, and the script can initialize an empty Supabase database as well as safely run against an existing one.
+
+The trade-off is that schema history is not recorded in EF Core's `__EFMigrationsHistory` table. For a production system with frequent schema changes, replace this script with versioned EF Core migrations and apply them through the deployment pipeline.
 
 ## Manual use in Supabase
 

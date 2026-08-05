@@ -7,5 +7,6 @@
   <ItemGroup>
     <ProjectReference Include="../UrlShortener.Application/UrlShortener.Application.csproj" />
     <ProjectReference Include="../UrlShortener.Infrastructure/UrlShortener.Infrastructure.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
 </Project>

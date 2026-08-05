@@ -1,5 +1,5 @@
-﻿using Xunit;
-using UrlShortener.Application.Services;
+﻿using UrlShortener.Application.Services;
+using Xunit;
 
 namespace UrlShortener.UnitTests;
 
@@ -8,17 +8,23 @@ public sealed class UrlRulesTests
     [Theory]
     [InlineData("https://example.com/path")]
     [InlineData("http://example.com/path")]
-    public void ValidHttpUrls_AreAccepted(string url) => Assert.Null(UrlShortenerService.Validate(url));
+    public void ValidHttpUrls_AreAccepted(string url) =>
+        Assert.Null(UrlShortenerService.Validate(url));
 
     [Theory]
     [InlineData("")]
     [InlineData("example.com")]
     [InlineData("ftp://example.com")]
     [InlineData("javascript:alert(1)")]
-    public void InvalidUrls_AreRejected(string url) => Assert.NotNull(UrlShortenerService.Validate(url));
+    public void InvalidUrls_AreRejected(string url) =>
+        Assert.NotNull(UrlShortenerService.Validate(url));
 
     [Fact]
-    public void OverlongUrl_IsRejected() => Assert.Equal("The URL is too long.", UrlShortenerService.Validate("https://example.com/" + new string('a', 2040)));
+    public void OverlongUrl_IsRejected() =>
+        Assert.Equal(
+            "The URL is too long.",
+            UrlShortenerService.Validate("https://example.com/" + new string('a', 2040))
+        );
 
     [Fact]
     public void ShortCode_IsSevenBase62Characters()
