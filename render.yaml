@@ -1,0 +1,16 @@
+﻿services:
+  - type: web
+    name: shorturl-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__UrlShortener
+        sync: false
+      - key: PublicBaseUrl
+        sync: false
+      - key: Cors__AllowedOrigins__0
+        sync: false
